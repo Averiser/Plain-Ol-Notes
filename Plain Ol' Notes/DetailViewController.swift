@@ -13,6 +13,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     
     var text: String = ""
+    var masterView: ViewController!
     
     
     
@@ -21,6 +22,12 @@ class DetailViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         textView.text = text
+        self.navigationItem.largeTitleDisplayMode = .never
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        textView.becomeFirstResponder()
     }
     
     func setText(t: String) {
@@ -28,6 +35,12 @@ class DetailViewController: UIViewController {
         if isViewLoaded {
             textView.text = t
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        masterView.newRowText = textView.text
+        textView.resignFirstResponder() 
     }
     
 
